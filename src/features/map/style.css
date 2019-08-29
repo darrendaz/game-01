@@ -2,10 +2,37 @@
   display: inline-flex;
 }
 
+.sauce {
+  background-image: url("/tiles/sauce.png");
+  background-size: 100%;
+}
+
 .rock {
   background-image: url("/tiles/rock.png");
+  background-size: 100%;
+}
+
+.pickle-rick {
+  background-image: url("/tiles/pickle-rick.png");
+  background-size: 100%;
+}
+
+.butter-robot {
+  background-image: url("/tiles/butter-robot.png");
+  background-size: 100%;
+}
+
+.mr-poopy-butthole {
+  background-image: url("/tiles/mr-poopy-butthole.png");
+  background-size: 100%;
+}
+
+.portal {
+  background-image: url("/tiles/portal.png");
+  background-size: 100%;
 }
 
 .grass {
-  background-image: url("/tiles/portal.png");
+  background-image: url("/tiles/grass.jpg");
+  background-size: 112%;
 }
