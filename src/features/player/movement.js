@@ -61,7 +61,7 @@ export default function handleMovement(player) {
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
     console.log(tiles[y][x])
-    return nextTile < 5
+    return nextTile < 6
   }
 
   function dispatchMove(direction, newPos) {

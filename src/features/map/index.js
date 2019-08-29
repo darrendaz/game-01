@@ -18,6 +18,8 @@ function getTileSprite(type) {
     case 5:
       return "rock"
     case 6:
+      return "rock"
+    case 7:
       return "sauce"
     default:
       return "grass"
