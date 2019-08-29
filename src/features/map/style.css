@@ -33,6 +33,7 @@
 }
 
 .grass {
-  background-image: url("/tiles/grass.jpg");
+  background-color: green;
+  /* background-image: url("/tiles/grass.jpg"); */
   background-size: 112%;
 }

@@ -1,4 +1,5 @@
 import React from "react"
+import { connect } from "react-redux"
 import { MOVE_DISTANCE } from "../../config/constants"
 import "./style.css"
 
@@ -52,9 +53,10 @@ function Map(props) {
       style={{
         width: "1200px",
         height: "1000px",
-        backgroundImage: "url('/tiles/grass.jpg')",
-        backgroundSize: "10%",
-        backgroundPositionY: "-20px",
+        // backgroundImage: "url('/tiles/grass.jpg')",
+        // backgroundSize: "10%",
+        // backgroundPositionY: "-20px",
+        backgroundColor: "green",
         fontSize: 0,
         margin: "10px auto"
       }}
@@ -66,4 +68,6 @@ function Map(props) {
   )
 }
 
-export default Map
+const mapStateToProps = state => ({ tiles: state.map.tiles })
+
+export default connect(mapStateToProps)(Map)

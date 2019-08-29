@@ -2,9 +2,7 @@ import store from "../../config/store"
 import { MOVE_DISTANCE, MAP_WIDTH, MAP_HEIGHT } from "../../config/constants"
 
 export default function handleMovement(player) {
-  function getNewPosition(direction) {
-    const oldPos = store.getState().player.position
-
+  function getNewPosition(oldPos, direction) {
     switch (direction) {
       case "WEST":
         return [oldPos[0] - MOVE_DISTANCE, oldPos[1]]
@@ -19,35 +17,77 @@ export default function handleMovement(player) {
     }
   }
 
+  function getSpriteLocation(direction) {
+    switch (direction) {
+      case "WEST":
+        return ["16px -450px", "scaleX(1)"]
+      case "EAST":
+        return ["16px -450px", "scaleX(-1)"]
+      case "SOUTH":
+        return ["16px -355px", "scaleX(-1)"]
+      case "NORTH":
+        return ["15px -545px", "scaleX(-1)"]
+      default:
+        return ["16px -355px", "scaleX(-1)"]
+    }
+  }
+
   function observeBoundaries(oldPos, newPos) {
     let pyInRange = newPos[1] >= 0 && newPos[1] <= MAP_HEIGHT
     let pxInRange = newPos[0] >= 0 && newPos[0] <= MAP_WIDTH
 
-    return pxInRange && pyInRange ? newPos : oldPos
+    return pxInRange && pyInRange
   }
 
-  function dispatchMove(direction) {
-    const oldPos = store.getState().player.position
+  function observeObstruction(oldPos, newPos) {
+    const tiles = store.getState().map.tiles
+    const y = newPos[1] / MOVE_DISTANCE
+    const x = newPos[0] / MOVE_DISTANCE
+    const nextTile = tiles[y][x]
+    console.log(tiles[y][x])
+    return nextTile < 5
+  }
 
+  function dispatchMove(direction, newPos) {
     store.dispatch({
       type: "MOVE_PLAYER",
       payload: {
-        position: observeBoundaries(oldPos, getNewPosition(direction))
+        position: newPos,
+        direction,
+        spriteLocation: getSpriteLocation(direction)
       }
     })
+  }
+
+  function tryMove(direction) {
+    const oldPos = store.getState().player.position
+    const newPos = getNewPosition(oldPos, direction)
+
+    if (
+      observeBoundaries(oldPos, newPos) &&
+      observeObstruction(oldPos, newPos)
+    ) {
+      dispatchMove(direction, newPos)
+    } else {
+      dispatchMove(direction, oldPos)
+    }
   }
 
   function handleKeyDown(e) {
     e.preventDefault()
     switch (e.keyCode) {
+      case 38:
       case 87:
-        return dispatchMove("NORTH")
+        return tryMove("NORTH")
+      case 40:
       case 83:
-        return dispatchMove("SOUTH")
+        return tryMove("SOUTH")
+      case 37:
       case 65:
-        return dispatchMove("WEST")
+        return tryMove("WEST")
+      case 39:
       case 68:
-        return dispatchMove("EAST")
+        return tryMove("EAST")
       default:
         console.log(e.keyCode)
     }
@@ -56,5 +96,6 @@ export default function handleMovement(player) {
   window.addEventListener("keydown", e => {
     handleKeyDown(e)
   })
+
   return player
 }
