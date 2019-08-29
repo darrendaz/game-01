@@ -1,0 +1,11 @@
+.tile {
+  display: inline-flex;
+}
+
+.rock {
+  background-image: url("/tiles/rock.png");
+}
+
+.grass {
+  background-image: url("/tiles/portal.png");
+}

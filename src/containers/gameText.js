@@ -8,7 +8,7 @@ export default class GameText extends Component {
   render() {
     return (
       <div>
-        <div id="board" onClick={this.handleClick}>
+        <div id="game-text" onClick={this.handleClick}>
           GameText
         </div>
       </div>

@@ -1,16 +1,58 @@
-import React from 'react'
+import React from "react"
+import { MOVE_DISTANCE } from "../../config/constants"
+import "./style.css"
 
+function getTileSprite(type) {
+  switch (type) {
+    case 0:
+      return "grass"
+    case 5:
+      return "rock"
+    case 6:
+      return "sauce"
+    default:
+      return "grass"
+  }
+}
+
+function MapTile(props) {
+  return (
+    <div
+      className={`tile ${getTileSprite(props.tile)}`}
+      style={{
+        height: MOVE_DISTANCE,
+        width: MOVE_DISTANCE
+      }}
+    >
+      {props.tile}
+    </div>
+  )
+}
+
+function MapRow(props) {
+  return (
+    <div className="row">
+      {props.tiles.map((tile, idx) => (
+        <MapTile key={idx} value={tile} />
+      ))}
+    </div>
+  )
+}
 
 function Map(props) {
   return (
     <div
       style={{
-        width: '800px',
-        height: '400px',
-        backgroundColor: 'black',
-        border: '4px solid white',
-        margin: '10px auto',
-      }}>
+        width: "1200px",
+        height: "1000px",
+        backgroundColor: "green",
+        fontSize: 0,
+        margin: "10px auto"
+      }}
+    >
+      {props.tiles.map((row, idx) => (
+        <MapRow key={idx} tiles={row} />
+      ))}
     </div>
   )
 }
