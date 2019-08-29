@@ -10,7 +10,7 @@ function getTileSprite(type) {
     case 1:
       return "butter-robot"
     case 2:
-      return "mr-poopy-butthole"
+      return "tree"
     case 3:
       return "portal"
     case 4:
@@ -21,6 +21,8 @@ function getTileSprite(type) {
       return "rock"
     case 7:
       return "sauce"
+    case 8:
+      return "tree"
     default:
       return "grass"
   }

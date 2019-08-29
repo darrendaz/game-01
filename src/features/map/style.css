@@ -8,6 +8,11 @@
   background-size: 100%;
 }
 
+.tree {
+  background-image: url("/tiles/tree.png");
+  background-size: 100%;
+}
+
 .rock {
   background-image: url("/tiles/rock.png");
   background-size: 100%;
