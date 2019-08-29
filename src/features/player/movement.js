@@ -48,20 +48,35 @@ export default function handleMovement(player) {
     }
   }
 
-  function observeBoundaries(oldPos, newPos) {
+  // function getNextTile(newPos) {
+  //   const tiles = store.getState().map.tiles
+  //   const y = newPos[1] / MOVE_DISTANCE
+  //   const x = newPos[0] / MOVE_DISTANCE
+  //   const nextTile = tiles[y][x]
+  //   return nextTile
+  // }
+
+  function observeBoundaries(newPos) {
     let pyInRange = newPos[1] >= 0 && newPos[1] <= MAP_HEIGHT
     let pxInRange = newPos[0] >= 0 && newPos[0] <= MAP_WIDTH
 
     return pxInRange && pyInRange
   }
 
-  function observeObstruction(oldPos, newPos) {
+  function observeObstruction(newPos) {
     const tiles = store.getState().map.tiles
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
-    console.log(tiles[y][x])
     return nextTile < 6
+  }
+
+  function observePortal(newPos) {
+    const tiles = store.getState().map.tiles
+    const y = newPos[1] / MOVE_DISTANCE
+    const x = newPos[0] / MOVE_DISTANCE
+    const nextTile = tiles[y][x]
+    return nextTile === 3
   }
 
   function dispatchMove(direction, newPos) {
@@ -80,13 +95,15 @@ export default function handleMovement(player) {
     const oldPos = store.getState().player.position
     const newPos = getNewPosition(oldPos, direction)
 
-    if (
-      observeBoundaries(oldPos, newPos) &&
-      observeObstruction(oldPos, newPos)
-    ) {
+    if (observeBoundaries(newPos) && observeObstruction(newPos)) {
       dispatchMove(direction, newPos)
     } else {
       dispatchMove(direction, oldPos)
+    }
+
+    if (observePortal(newPos)) {
+      console.log("portal")
+      dispatchMove(direction, newPos)
     }
   }
 
