@@ -17,14 +17,30 @@ export default function handleMovement(player) {
     }
   }
 
+  function getWalkIndex() {
+    const walkIndex = store.getState().player.walkIndex
+    return walkIndex >= 3 ? 0 : walkIndex + 1
+  }
+
   function getSpriteLocation(direction) {
+    let keyframes = {
+      eastwest: [
+        "16px -450px",
+        "-55px -450px",
+        "-128px -450px",
+        "-200px -450px"
+      ],
+      north: ["15px -545px", "15px -545px", "15px -545px", "15px -545px"],
+      south: ["16px -355px", "-56px -355px", "-128px -355px", "-200px -355px"]
+    }
+
     switch (direction) {
-      case "WEST":
-        return ["16px -450px", "scaleX(1)"]
-      case "EAST":
-        return ["16px -450px", "scaleX(-1)"]
       case "SOUTH":
         return ["16px -355px", "scaleX(-1)"]
+      case "EAST":
+        return ["16px -450px", "scaleX(-1)"]
+      case "WEST":
+        return ["16px -450px", "scaleX(1)"]
       case "NORTH":
         return ["15px -545px", "scaleX(-1)"]
       default:
@@ -54,7 +70,8 @@ export default function handleMovement(player) {
       payload: {
         position: newPos,
         direction,
-        spriteLocation: getSpriteLocation(direction)
+        spriteLocation: getSpriteLocation(direction),
+        walkIndex: getWalkIndex()
       }
     })
   }
