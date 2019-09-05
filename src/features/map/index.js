@@ -72,6 +72,9 @@ function Map(props) {
   )
 }
 
-const mapStateToProps = state => ({ tiles: state.map.tiles })
+const mapStateToProps = state => ({
+  tiles: state.map.tiles,
+  mapID: state.map.mapID
+})
 
 export default connect(mapStateToProps)(Map)

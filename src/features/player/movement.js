@@ -78,11 +78,10 @@ export default function handleMovement(player) {
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
     if (nextTile.type === 3) {
-      const mapID = nextTile.mapTo
-      console.log(mapID)
-      // store.dispatch({
-      //   type: ""
-      // })
+      const mapTo = nextTile.mapTo
+      return mapTo ? mapTo : false
+    } else {
+      return false
     }
   }
 
@@ -98,12 +97,11 @@ export default function handleMovement(player) {
     })
   }
 
-  function dispatchMapChange(map, newPos) {
+  function dispatchMapChange(mapID) {
     store.dispatch({
-      type: "CHANGE_WORLD",
+      type: "CHANGE_MAP",
       payload: {
-        position: newPos,
-        map
+        mapID
       }
     })
   }
@@ -119,8 +117,8 @@ export default function handleMovement(player) {
     }
     // PORTAL
     if (observeBoundaries(newPos) && enterPortal(newPos)) {
-      console.log("portal")
-      // dispatchMove(direction, newPos)
+      dispatchMove(direction, newPos)
+      dispatchMapChange(enterPortal(newPos))
     }
   }
 

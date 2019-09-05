@@ -4,12 +4,15 @@ import Player from "../player"
 
 import { tiles } from "../../data/maps/1"
 import store from "../../config/store"
+import { connect } from "react-redux"
 
+// Props are throwing a propert of map error at line 12
 function World(props) {
+  const mapID = props.mapID
   store.dispatch({
     type: "ADD_TILES",
     payload: {
-      tiles: tiles[0]
+      tiles: tiles[mapID]
     }
   })
 
@@ -28,4 +31,10 @@ function World(props) {
   )
 }
 
-export default World
+function mapStateToProps(state) {
+  return {
+    ...state.map
+  }
+}
+
+export default connect(mapStateToProps)(World)
