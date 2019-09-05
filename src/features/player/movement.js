@@ -70,8 +70,8 @@ export default function handleMovement(player) {
     const nextTile = tiles[y][x]
     return nextTile < 6
   }
-
-  function observePortal(newPos) {
+  // PORTAL
+  function enterPortal(newPos) {
     const tiles = store.getState().map.tiles
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
@@ -91,6 +91,16 @@ export default function handleMovement(player) {
     })
   }
 
+  function dispatchMapChange(map, newPos) {
+    store.dispatch({
+      type: "CHANGE_WORLD",
+      payload: {
+        position: newPos,
+        map,
+      }
+    })
+  }
+
   function tryMove(direction) {
     const oldPos = store.getState().player.position
     const newPos = getNewPosition(oldPos, direction)
@@ -100,10 +110,10 @@ export default function handleMovement(player) {
     } else {
       dispatchMove(direction, oldPos)
     }
-
-    if (observePortal(newPos)) {
+    // PORTAL
+    if (observeBoundaries(newPos) && enterPortal(newPos)) {
       console.log("portal")
-      dispatchMove(direction, newPos)
+      // dispatchMove(direction, newPos)
     }
   }
 
