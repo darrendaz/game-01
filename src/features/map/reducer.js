@@ -1,4 +1,5 @@
 const initialState = {
+  mapID: 0,
   tiles: []
 }
 

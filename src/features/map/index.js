@@ -31,13 +31,13 @@ function getTileSprite(type) {
 function MapTile(props) {
   return (
     <div
-      className={`tile ${getTileSprite(props.tile)}`}
+      className={`tile ${getTileSprite(props.tile.type)}`}
       style={{
         height: MOVE_DISTANCE,
         width: MOVE_DISTANCE
       }}
     >
-      {props.tile}
+      {props.tile.type}
     </div>
   )
 }

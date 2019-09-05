@@ -6,11 +6,10 @@ import { tiles } from "../../data/maps/1"
 import store from "../../config/store"
 
 function World(props) {
-  const pop = 1
   store.dispatch({
     type: "ADD_TILES",
     payload: {
-      tiles: tiles[pop]
+      tiles: tiles[0]
     }
   })
 

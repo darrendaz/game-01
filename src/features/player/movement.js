@@ -65,10 +65,11 @@ export default function handleMovement(player) {
 
   function observeObstruction(newPos) {
     const tiles = store.getState().map.tiles
+    console.log(tiles)
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
-    return nextTile < 6
+    return nextTile.type < 6
   }
   // PORTAL
   function enterPortal(newPos) {
@@ -76,7 +77,13 @@ export default function handleMovement(player) {
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
-    return nextTile === 3
+    if (nextTile.type === 3) {
+      const mapID = nextTile.mapTo
+      console.log(mapID)
+      // store.dispatch({
+      //   type: ""
+      // })
+    }
   }
 
   function dispatchMove(direction, newPos) {
@@ -96,7 +103,7 @@ export default function handleMovement(player) {
       type: "CHANGE_WORLD",
       payload: {
         position: newPos,
-        map,
+        map
       }
     })
   }
