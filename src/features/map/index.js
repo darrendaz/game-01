@@ -28,6 +28,16 @@ function getTileSprite(type) {
   }
 }
 
+function MapRow(props) {
+  return (
+    <div className="row">
+      {props.area.map((tile, idx) => (
+        <MapTile key={idx} tile={tile} />
+      ))}
+    </div>
+  )
+}
+
 function MapTile(props) {
   return (
     <div
@@ -38,15 +48,6 @@ function MapTile(props) {
       }}
     >
       {props.tile.type}
-    </div>
-  )
-}
-function MapRow(props) {
-  return (
-    <div className="row">
-      {props.tiles.map((tile, idx) => (
-        <MapTile key={idx} tile={tile} />
-      ))}
     </div>
   )
 }
@@ -65,16 +66,17 @@ function Map(props) {
         margin: "10px auto"
       }}
     >
-      {props.tiles.map((row, idx) => (
-        <MapRow key={idx} tiles={row} />
+      {props.tiles.map((area, idx) => (
+        <MapRow key={idx} area={area} />
       ))}
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  tiles: state.map.tiles,
-  mapID: state.map.mapID
-})
+function mapStateToProps(state) {
+  return {
+    ...state.map
+  }
+}
 
 export default connect(mapStateToProps)(Map)

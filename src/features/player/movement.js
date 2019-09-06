@@ -56,6 +56,7 @@ export default function handleMovement(player) {
   //   return nextTile
   // }
 
+  // BOUNDARIES
   function observeBoundaries(newPos) {
     let pyInRange = newPos[1] >= 0 && newPos[1] <= MAP_HEIGHT
     let pxInRange = newPos[0] >= 0 && newPos[0] <= MAP_WIDTH
@@ -63,6 +64,7 @@ export default function handleMovement(player) {
     return pxInRange && pyInRange
   }
 
+  // OBSTRUCTION
   function observeObstruction(newPos) {
     const tiles = store.getState().map.tiles
     console.log(tiles)
@@ -71,6 +73,7 @@ export default function handleMovement(player) {
     const nextTile = tiles[y][x]
     return nextTile.type < 6
   }
+
   // PORTAL
   function enterPortal(newPos) {
     const tiles = store.getState().map.tiles
@@ -115,10 +118,11 @@ export default function handleMovement(player) {
     } else {
       dispatchMove(direction, oldPos)
     }
+
     // PORTAL
     if (observeBoundaries(newPos) && enterPortal(newPos)) {
-      dispatchMove(direction, newPos)
       dispatchMapChange(enterPortal(newPos))
+      dispatchMove(direction, newPos)
     }
   }
 
