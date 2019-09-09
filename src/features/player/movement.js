@@ -48,14 +48,6 @@ export default function handleMovement(player) {
     }
   }
 
-  // function getNextTile(newPos) {
-  //   const tiles = store.getState().map.tiles
-  //   const y = newPos[1] / MOVE_DISTANCE
-  //   const x = newPos[0] / MOVE_DISTANCE
-  //   const nextTile = tiles[y][x]
-  //   return nextTile
-  // }
-
   // BOUNDARIES
   function observeBoundaries(newPos) {
     let pyInRange = newPos[1] >= 0 && newPos[1] <= MAP_HEIGHT
@@ -66,8 +58,7 @@ export default function handleMovement(player) {
 
   // OBSTRUCTION
   function observeObstruction(newPos) {
-    const tiles = store.getState().map.tiles
-    console.log(tiles)
+    const tiles = store.getState().map.tiles[0]
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
@@ -76,13 +67,13 @@ export default function handleMovement(player) {
 
   // PORTAL
   function enterPortal(newPos) {
-    const tiles = store.getState().map.tiles
+    const tiles = store.getState().map.tiles[1]
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
     if (nextTile.type === 3) {
       const mapTo = nextTile.mapTo
-      return mapTo ? mapTo : false
+      return mapTo
     } else {
       return false
     }
@@ -118,7 +109,6 @@ export default function handleMovement(player) {
     } else {
       dispatchMove(direction, oldPos)
     }
-
     // PORTAL
     if (observeBoundaries(newPos) && enterPortal(newPos)) {
       dispatchMapChange(enterPortal(newPos))

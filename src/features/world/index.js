@@ -11,7 +11,7 @@ function World(props) {
     type: "ADD_TILES",
     payload: {
       mapID: props.mapID,
-      tiles: tiles[props.mapID]
+      tiles
     }
   })
 

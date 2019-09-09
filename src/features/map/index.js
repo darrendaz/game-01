@@ -31,7 +31,7 @@ function getTileSprite(type) {
 function MapRow(props) {
   return (
     <div className="row">
-      {props.area.map((tile, idx) => (
+      {props.row.map((tile, idx) => (
         <MapTile key={idx} tile={tile} />
       ))}
     </div>
@@ -53,6 +53,7 @@ function MapTile(props) {
 }
 
 function Map(props) {
+  debugger
   return (
     <div
       style={{
@@ -66,8 +67,8 @@ function Map(props) {
         margin: "10px auto"
       }}
     >
-      {props.tiles.map((area, idx) => (
-        <MapRow key={idx} area={area} />
+      {props.tiles[props.mapID].map((row, idx) => (
+        <MapRow key={idx} row={row} />
       ))}
     </div>
   )

@@ -6,7 +6,7 @@ import handleMovement from "./movement"
 function Player(props) {
   return (
     <div
-    style={{
+      style={{
         position: "absolute",
         margin: "auto",
         top: props.position[1],
@@ -19,7 +19,7 @@ function Player(props) {
         clip: `rect(0px, 100px,100px,0px)`,
         width: "100px",
         height: "100px"
-    }}
+      }}
     />
   )
 }
