@@ -58,7 +58,7 @@ export default function handleMovement(player) {
 
   // OBSTRUCTION
   function observeObstruction(newPos) {
-    const tiles = store.getState().map.tiles[0]
+    const tiles = store.getState().map.tiles[store.getState().map.mapID]
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
@@ -67,13 +67,14 @@ export default function handleMovement(player) {
 
   // PORTAL
   function enterPortal(newPos) {
-    const tiles = store.getState().map.tiles[1]
+    const tiles = store.getState().map.tiles[store.getState().map.mapID]
     const y = newPos[1] / MOVE_DISTANCE
     const x = newPos[0] / MOVE_DISTANCE
     const nextTile = tiles[y][x]
     if (nextTile.type === 3) {
-      const mapTo = nextTile.mapTo
-      return mapTo
+      const mapID = nextTile.mapTo
+      console.log(`Portal to world ${mapID + 1}`)
+      return mapID
     } else {
       return false
     }
@@ -111,8 +112,10 @@ export default function handleMovement(player) {
     }
     // PORTAL
     if (observeBoundaries(newPos) && enterPortal(newPos)) {
-      dispatchMapChange(enterPortal(newPos))
+      const mapID = enterPortal(newPos)
       dispatchMove(direction, newPos)
+      dispatchMapChange(mapID)
+      console.log(mapID)
     }
   }
 

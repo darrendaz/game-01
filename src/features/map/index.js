@@ -53,15 +53,11 @@ function MapTile(props) {
 }
 
 function Map(props) {
-  debugger
   return (
     <div
       style={{
         width: "1200px",
         height: "1000px",
-        // backgroundImage: "url('/tiles/grass.jpg')",
-        // backgroundSize: "10%",
-        // backgroundPositionY: "-20px",
         backgroundColor: "green",
         fontSize: 0,
         margin: "10px auto"
@@ -80,4 +76,13 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Map)
+function mapDispatchToProps(state) {
+  return {
+    ...state.mapID
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Map)
