@@ -33,7 +33,7 @@
     ]
   },
   "devDependencies": {
-    "react-dev-utils": "^9.0.3",
+    "react-dev-utils": "^11.0.4",
     "redux-devtools-extension": "^2.13.8"
   },
   "homepage": "https://darrendaz.github.io/game-01"
